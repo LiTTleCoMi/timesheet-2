@@ -3,5 +3,10 @@
     @if (department) {
     <h2>{{ department.name }}</h2>
     }
+		<mat-card>
+			<mat-form-field>
+				<input matInput [formControl]="employeeNameFC" placeholder="Employee Name" type="text">
+			</mat-form-field>
+		</mat-card>
   </div>
 </div>
