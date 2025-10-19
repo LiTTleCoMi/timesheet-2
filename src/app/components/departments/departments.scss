@@ -1,0 +1,13 @@
+mat-card {
+  width: 50%;
+  margin: auto;
+}
+
+mat-list-item {
+  border-radius: 5px;
+
+  &:hover {
+    background-color: #e0e0e0;
+    cursor: pointer;
+  }
+}

@@ -1,11 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
+import { DepartmentInterface } from '../../interfaces/department';
+import { DepartmentsService } from '../../services/departments.service';
+import { MatCard } from "@angular/material/card";
+import { MaterialModule } from "../../modules/material-module";
 
 @Component({
   selector: 'app-departments',
-  imports: [],
+  imports: [MatCard, MaterialModule],
   templateUrl: './departments.html',
-  styleUrl: './departments.scss'
+  styleUrl: './departments.scss',
 })
-export class Departments {
+export class Departments implements OnInit {
+  departments!: DepartmentInterface[];
+  private departmentsService = inject(DepartmentsService);
 
+  ngOnInit() {
+    this.departments = this.departmentsService.departments;
+  }
 }
