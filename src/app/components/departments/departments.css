@@ -1,0 +1,16 @@
+:host {
+  flex: 1;
+}
+
+mat-card {
+  width: 50%;
+  margin: auto;
+}
+
+mat-list-item {
+  border-radius: 5px;
+}
+mat-list-item:hover {
+  background-color: #e0e0e0;
+  cursor: pointer;
+}/*# sourceMappingURL=departments.css.map */
