@@ -18,15 +18,34 @@ mat-card {
 }
 
 .add-employee-row {
-	display: flex;
-	align-items: center;
-	gap: 8px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
 
-	mat-form-field {
-		flex: 1;
-	}
+  mat-form-field {
+    flex: 1;
+  }
+}
 
-	button[mat-mini-fab] {
-		margin-left: 8px;
-	}
+.hours {
+  min-height: 200px;
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  tbody {
+    td {
+      text-align: center;
+      input {
+        width: 90%;
+        text-align: center;
+
+        &::-webkit-inner-spin-button {
+          display: none;
+        }
+      }
+    }
+  }
 }

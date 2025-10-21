@@ -2,14 +2,14 @@ import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DepartmentsService } from '../../services/departments.service';
 import { DepartmentInterface } from '../../interfaces/department';
-import { AbstractControl, FormControl, ValidatorFn } from '@angular/forms';
+import { AbstractControl, FormControl, FormsModule, ValidatorFn } from '@angular/forms';
 import { EmployeeInterface } from '../../interfaces/employee';
 import { MaterialModule } from '../../modules/material-module';
-import { JsonPipe } from '@angular/common';
+import { TitleCasePipe } from '@angular/common';
 
 @Component({
   selector: 'app-timesheet',
-  imports: [JsonPipe, MaterialModule],
+  imports: [MaterialModule, TitleCasePipe, FormsModule],
   templateUrl: './timesheet.html',
   styleUrl: './timesheet.scss',
 })
@@ -23,6 +23,15 @@ export class Timesheet implements OnInit {
   employeeNameFC = new FormControl('', this.nameValidator());
   employees: EmployeeInterface[] = [];
   employeeId = 0;
+  weekdays: string[] = [
+    'monday',
+    'tuesday',
+    'wednesday',
+    'thursday',
+    'friday',
+    'saturday',
+    'sunday',
+  ];
 
   ngOnInit() {
     this.departments = this.departmentsService.departments;
@@ -39,7 +48,14 @@ export class Timesheet implements OnInit {
         id: this.employeeId.toString(),
         departmentId: this.department?.id,
         name: this.employeeNameFC.value.trim(),
-        payRate: Math.floor(Math.random() * 50) + 50,
+				payRate: Math.floor(Math.random() * 50) + 50,
+				monday: 0,
+				tuesday: 0,
+				wednesday: 0,
+				thursday: 0,
+				friday: 0,
+				saturday: 0,
+				sunday: 0,
       });
 
       this.employeeNameFC.setValue('');

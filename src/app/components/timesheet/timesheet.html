@@ -7,20 +7,51 @@
       <div class="add-employee-row">
         <mat-form-field>
           <input matInput [formControl]="employeeNameFC" placeholder="Employee Name" type="text" />
-					
+
           @if (employeeNameFC.hasError('duplicate')) {
           <mat-error>Duplicate Name</mat-error>
           }
         </mat-form-field>
 
-				<button (click)="addEmployee()" [disabled]="employeeNameFC.invalid" mat-mini-fab>
-					<mat-icon>add</mat-icon>
-				</button>
+        <button (click)="addEmployee()" [disabled]="employeeNameFC.invalid" mat-mini-fab>
+          <mat-icon>add</mat-icon>
+        </button>
       </div>
-
-			@if (employees && employees.length > 0) {
-				<div>{{ employees | json }}</div>
-			}
     </mat-card>
+    @if (employees && employees.length > 0) {
+    <mat-card class="hours">
+      <table>
+        <thead>
+          <th>Name</th>
+          @for (day of weekdays; track day) {
+          <th>{{ day | titlecase }}</th>
+          }
+          <th>Total Hours</th>
+          <th></th>
+        </thead>
+        <tbody>
+          @for (employee of employees; track employee.id; let i = $index) {
+          <tr [class.odd-row]="i % 2 !== 0">
+            <td>{{ employee.name }}</td>
+            @for (day of weekdays; track day) {
+            <td>
+              <input
+                type="number"
+                [id]="day"
+                [(ngModel)]="employee[day]"
+                class="hours-input"
+                min="0"
+                max="24"
+              />
+            </td>
+            }
+						<td></td>
+						<td></td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </mat-card>
+    }
   </div>
 </div>
