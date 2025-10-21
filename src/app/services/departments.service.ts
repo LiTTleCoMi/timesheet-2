@@ -8,6 +8,8 @@ import { Observable } from 'rxjs';
 })
 export class DepartmentsService {
 	private http = inject(HttpClient);
+
+	departments: DepartmentInterface[] = [];
 	
 	getDepartments(): Observable<DepartmentInterface[]> {
 		return this.http.get<DepartmentInterface[]>(
