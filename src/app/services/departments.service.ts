@@ -1,13 +1,17 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { DepartmentInterface } from '../interfaces/department';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DepartmentsService {
-  departments: DepartmentInterface[] = [
-    { id: '1', name: 'Customer Success' },
-    { id: '2', name: 'Sales' },
-    { id: '3', name: 'Finance' },
-  ];
+	private http = inject(HttpClient);
+	
+	getDepartments(): Observable<DepartmentInterface[]> {
+		return this.http.get<DepartmentInterface[]>(
+      `https://hr-timesheet-test.firebaseio.com/departments.json`
+    );
+	}
 }
