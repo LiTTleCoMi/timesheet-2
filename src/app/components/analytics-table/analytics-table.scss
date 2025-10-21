@@ -1,0 +1,20 @@
+table {
+	border-collapse: collapse;
+
+	thead {
+		border-bottom: 1px solid black;
+		th {
+			padding: 5px;
+		}
+	}
+
+	tbody {
+		tr {
+			border-bottom: 1pt solid #C1C1C1;
+		}
+		td {
+			text-align: center;
+			padding: 10px;
+		}
+	}
+}

@@ -31,7 +31,7 @@ mat-card {
 .hours {
   min-height: 200px;
   margin-top: 30px;
-	padding: 15px;
+  padding: 15px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -39,17 +39,17 @@ mat-card {
   table {
     border-collapse: collapse;
 
-		thead {
-			th {
-				padding: 5px;
-				border-bottom: 1px solid black;
-			}
-		}
+    thead {
+      border-bottom: 1px solid black;
+      th {
+        padding: 5px;
+      }
+    }
 
     tbody {
-			tr {
-				border-bottom: 1pt solid #C1C1C1;
-			}
+      tr {
+        border-bottom: 1pt solid #c1c1c1;
+      }
       td {
         text-align: center;
         input {
