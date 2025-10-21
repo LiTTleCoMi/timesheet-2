@@ -45,7 +45,7 @@
               />
             </td>
             }
-            <td class="total-cell">{{ getTotalHours(employee) }}</td>
+            <td class="total-cell">{{ getTotalHours(employee) | number : '1.2-2' }}</td>
             <td>
               <button mat-icon-button (click)="deleteEmployee(i)">
                 <mat-icon>delete</mat-icon>

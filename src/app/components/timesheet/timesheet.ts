@@ -5,11 +5,11 @@ import { DepartmentInterface } from '../../interfaces/department';
 import { AbstractControl, FormControl, FormsModule, ValidatorFn } from '@angular/forms';
 import { EmployeeInterface } from '../../interfaces/employee';
 import { MaterialModule } from '../../modules/material-module';
-import { TitleCasePipe } from '@angular/common';
+import { DecimalPipe, TitleCasePipe } from '@angular/common';
 
 @Component({
   selector: 'app-timesheet',
-  imports: [MaterialModule, TitleCasePipe, FormsModule],
+  imports: [MaterialModule, TitleCasePipe, FormsModule, DecimalPipe],
   templateUrl: './timesheet.html',
   styleUrl: './timesheet.scss',
 })

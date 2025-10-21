@@ -1,9 +1,10 @@
 import { Component, input, OnInit } from '@angular/core';
 import { EmployeeInterface } from '../../interfaces/employee';
+import { CurrencyPipe, DecimalPipe, TitleCasePipe } from '@angular/common';
 
 @Component({
   selector: 'app-analytics-table',
-  imports: [],
+  imports: [TitleCasePipe, DecimalPipe, CurrencyPipe],
   templateUrl: './analytics-table.html',
   styleUrl: './analytics-table.scss',
 })
