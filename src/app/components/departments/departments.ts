@@ -4,10 +4,12 @@ import { DepartmentsService } from '../../services/departments.service';
 import { MatCard } from '@angular/material/card';
 import { MaterialModule } from '../../modules/material-module';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-departments',
-  imports: [MatCard, MaterialModule],
+  imports: [MatCard, MaterialModule, AsyncPipe],
   templateUrl: './departments.html',
   styleUrl: './departments.scss',
 })
@@ -15,12 +17,10 @@ export class Departments implements OnInit {
   private departmentsService = inject(DepartmentsService);
   private router = inject(Router);
 
-  departments!: DepartmentInterface[];
+  departments$!: Observable<DepartmentInterface[]>;
 
   ngOnInit() {
-		this.departmentsService.getDepartments().subscribe(departments => {
-			this.departments = departments;
-		})
+		this.departments$ = this.departmentsService.getDepartments()
   }
 
   goToDepartment(departmentId: string) {
