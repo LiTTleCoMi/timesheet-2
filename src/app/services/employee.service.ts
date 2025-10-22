@@ -1,7 +1,7 @@
 import { EnvironmentInjector, inject, Injectable, runInInjectionContext } from '@angular/core';
 import { Firestore } from '@angular/fire/firestore';
 import { EmployeeInterface } from '../interfaces/employee';
-import { addDoc, collection, getDocs, query, where } from 'firebase/firestore';
+import { addDoc, collection, doc, getDocs, query, setDoc, where } from 'firebase/firestore';
 import { defer, from, map, Observable } from 'rxjs';
 
 @Injectable({
@@ -31,5 +31,11 @@ export class EmployeeService {
         );
       })
     );
-  }
+	}
+	
+	async updateEmployeeHours(employee: EmployeeInterface): Promise<void> {
+		const colRef = collection(this.firestore, 'employee-hours');
+		const employeeDocRef = doc(colRef, employee.id);
+		return await setDoc(employeeDocRef, employee);
+	}
 }

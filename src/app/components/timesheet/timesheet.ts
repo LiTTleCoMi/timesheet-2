@@ -11,18 +11,15 @@ import { EmployeeService } from '../../services/employee.service';
 import { DepartmentsService } from '../../services/departments.service';
 @Component({
   selector: 'app-timesheet',
-  imports: [MaterialModule, JsonPipe, TitleCasePipe, AsyncPipe, FormsModule, DecimalPipe],
+  imports: [MaterialModule, TitleCasePipe, AsyncPipe, FormsModule],
   templateUrl: './timesheet.html',
   styleUrl: './timesheet.scss',
 })
 export class Timesheet implements OnInit {
-  // This will hold the observable stream for ALL departments
   $departments: Observable<DepartmentInterface[]> | undefined;
-  // This will hold the observable stream for JUST THE CURRENT department
   $department: Observable<DepartmentInterface | undefined> | undefined;
-  // Employees signal for template consumption (no BehaviorSubject, no manual subscribe)
   employees: WritableSignal<EmployeeInterface[]> = signal<EmployeeInterface[]>([]);
-  employeeNameFC = new FormControl('', this.nameValidator()); // <-- Validator applied
+  employeeNameFC = new FormControl('', this.nameValidator());
   weekdays: string[] = [
     'monday',
     'tuesday',
@@ -31,17 +28,14 @@ export class Timesheet implements OnInit {
     'friday',
     'saturday',
     'sunday',
-  ]; // <-- New
+  ];
 
   private employeeService: EmployeeService = inject(EmployeeService);
   private departmentsService: DepartmentsService = inject(DepartmentsService);
   private router: Router = inject(Router);
-  private route: ActivatedRoute = inject(ActivatedRoute); // Used to read URL parameters
+  private route: ActivatedRoute = inject(ActivatedRoute);
 
-  // Read departmentId once from the route
   private departmentId: string = this.route.snapshot.params['id'] as string;
-
-  // Read employees for this department from the server as a signal (no manual subscribe/effect)
   private employeesFromServer: Signal<EmployeeInterface[]> = toSignal(
     this.employeeService.getEmployeeHoursByDepartment(this.departmentId),
     { initialValue: [] }
@@ -129,22 +123,13 @@ export class Timesheet implements OnInit {
   }
 
   async submit(): Promise<void> {
-    const list = this.employees();
-    if (!list || list.length === 0) {
-      return; // nothing to save
-    }
-
-    try {
-      const savePromises = list.map((emp) => this.employeeService.saveEmployeeHours(emp));
-      await Promise.all(savePromises);
-      // Navigate back to the departments page after successful saves
-      await this.router.navigate(['./departments']);
-    } catch (err) {
-      console.error('Error saving employee hours', err);
-      // Basic user feedback; in a real app, swap for a snackbar/toast service
-      alert('Failed to save employee hours. Please try again.');
-    } finally {
-      // updating anything here will happen after success or failure like a save
-    }
+    this.employees().forEach((employee) => {
+      if (employee.id) {
+        this.employeeService.updateEmployeeHours(employee);
+      } else {
+        this.employeeService.saveEmployeeHours(employee);
+      }
+    });
+    this.router.navigate(['./departments']);
   }
 }
